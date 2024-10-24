@@ -1,0 +1,21 @@
+runtime: nodejs22  # Specify the Node.js version you're using
+instance_class: F1  # Optional: define instance class (F1 is a small instance)
+env: standard  # Using the standard environment
+
+handlers:
+  - url: /uploads
+    static_files: uploads
+    upload: uploads/.*  # Correct regex to match any file in the uploads directory
+
+  - url: /.*
+    script: auto  # Automatically route to your Express application
+
+# Optional: setting automatic scaling
+automatic_scaling:
+  min_idle_instances: 1
+  max_idle_instances: 2
+  min_pending_latency: 30ms
+  max_pending_latency: 60ms
+
+env_variables:
+  GOOGLE_APPLICATION_CREDENTIALS: "./key.json"  # Adjust the path as necessary
